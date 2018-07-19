@@ -2,10 +2,14 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import numpy as np
-from keras.models import make_batches
+#from keras.models import make_batches
 
 from .misc import shuffle_data, to_categorical
 from .loading import load_samples
+
+def make_batches(size, batch_size):
+    nb_batch = int(np.ceil(size/float(batch_size)))
+return [(i*batch_size, min(size, (i+1)*batch_size)) for i in range(0, nb_batch)]
 
 
 def train_on_batch(model, X, y, nb_classes,
